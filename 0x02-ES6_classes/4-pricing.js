@@ -6,10 +6,6 @@ export default class Pricing {
     this._currency = currency;
   }
 
-  displayFullPrice() {
-    return `${this._amount} ${this._currency.displayFullCurrency()}`;
-  }
-
   get amount() {
     return this._amount;
   }
@@ -24,5 +20,13 @@ export default class Pricing {
 
   set currency(newCurrency) {
     this._currency = newCurrency;
+  }
+
+  displayFullPrice() {
+    return `${this._amount} ${this._currency.displayFullCurrency()}`;
+  }
+
+  static convertPrice(amount, conversionRate) {
+    return amount * conversionRate;
   }
 }
