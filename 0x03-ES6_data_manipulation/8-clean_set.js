@@ -1,7 +1,9 @@
 function cleanSet(set, startString) {
-  if (!startString) return '';
-  return [...set].filter((str) => str
-  && str.startsWith(startString))
+  if (!startString || typeof startString !== 'string'){
+    return '';
+  }
+  return [...set]
+    .filter((item) => typeof item === 'string' && item.startsWith(startString))
     .map((str) => str.slice(startString.length)).join('-');
 }
 
