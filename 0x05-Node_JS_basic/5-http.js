@@ -1,14 +1,13 @@
 const http = require('http');
 const url = require('url');
 
+const fs = require('fs');
+
 /**
  * Counts the students in a CSV data file asynchronously.
  * @param {String} path The path to the CSV data file.
- * @returns {Promise} A promise that resolves when the file is read and processed.
-*/
-
-const fs = require('fs');
-
+ * @returns {Promise<String>} A promise that resolves with the student data as a string.
+ */
 const countStudents = (path) => new Promise((resolve, reject) => {
   fs.readFile(path, 'utf8', (err, data) => {
     if (err) {
@@ -18,7 +17,6 @@ const countStudents = (path) => new Promise((resolve, reject) => {
 
     const lines = data.trim().split('\n').filter((line) => line.trim() !== '');
     if (lines.length <= 1) {
-      resolve();
       return;
     }
 
@@ -38,13 +36,13 @@ const countStudents = (path) => new Promise((resolve, reject) => {
     }
 
     const totalStudents = Object.values(studentGroup).reduce((sum, group) => sum + group.length, 0);
-    console.log(`Number of students: ${totalStudents}`);
+    let result = `Number of students: ${totalStudents}`;
     for (const [field, group] of Object.entries(studentGroup)) {
       const studentNames = group.map((student) => student.firstname).join(', ');
-      console.log(`Number of students in ${field}: ${group.length}. List: ${studentNames}`);
+      result += `\nNumber of students in ${field}: ${group.length}. List: ${studentNames}`;
     }
 
-    resolve();
+    resolve(result);
   });
 });
 
@@ -63,7 +61,7 @@ const server = http.createServer((req, res) => {
     res.setHeader('Content-Type', 'text/plain');
     countStudents(dbPath)
       .then((data) => {
-        res.end(`This is the list of our students\n${data}.`);
+        res.end(`This is the list of our students\n${data}`);
       })
       .catch((err) => {
         res.statusCode = 500;
