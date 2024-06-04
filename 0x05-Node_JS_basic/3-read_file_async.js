@@ -35,13 +35,13 @@ const countStudents = (path) => new Promise((resolve, reject) => {
     }
 
     const totalStudents = Object.values(studentGroup).reduce((sum, group) => sum + group.length, 0);
-    console.log(`Number of students: ${totalStudents}`);
+    let result = console.log(`Number of students: ${totalStudents}`);
     for (const [field, group] of Object.entries(studentGroup)) {
       const studentNames = group.map((student) => student.firstname).join(', ');
       console.log(`Number of students in ${field}: ${group.length}. List: ${studentNames}`);
     }
 
-    resolve();
+    resolve(result);
   });
 });
 
