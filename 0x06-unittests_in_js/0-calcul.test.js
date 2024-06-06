@@ -20,4 +20,13 @@ describe('calculateNumber', () => {
   it('should return -4', () => {
     assert.strictEqual(calculateNumber(-2, -2), -4);
   });
+  it('should round -1.4 and -2.4 and return -3', () => {
+    assert.strictEqual(calculateNumber(-1.4, -2.4), -3);
+  });
+  it('should round 1.5 and 2.5 and return 5', () => {
+    assert.strictEqual(calculateNumber(1.5, 2.5), 5);
+  });
+  it('should round 1.51 and 2.51 and return 5', () => {
+    assert.strictEqual(calculateNumber(1.51, 2.51), 5);
+  });
 });
