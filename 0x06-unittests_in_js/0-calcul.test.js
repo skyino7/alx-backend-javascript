@@ -2,9 +2,6 @@ const assert = require('assert');
 const calculateNumber = require('./0-calcul');
 
 describe('calculateNumber', () => {
-  it('should return a number', () => {
-    assert.strictEqual(typeof calculateNumber(1, 2), 'number');
-  });
   it('should return 3', () => {
     assert.strictEqual(calculateNumber(1, 2), 3);
   });
